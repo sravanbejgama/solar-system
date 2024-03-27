@@ -38,12 +38,11 @@ jobs:
           id: nodejs-unit-testing-step
           run: npm test
 
-        - name: List Test Results
-          run: ls -la
+       # - name: List Test Results
+        #  run: ls -la
         
-
         - name: Archive Test Result
-          if: steps.nodejs-unit-testing-step.outcome == 'failure' || steps.nodejs-unit-testing-step.outcome == 'success'
+          if: failure() && (steps.nodejs-unit-testing-step.outcome == 'failure' || steps.nodejs-unit-testing-step.outcome == 'success')
           uses: actions/upload-artifact@v3
           with:
             name: Mocha-Test-Result
